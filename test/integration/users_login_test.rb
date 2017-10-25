@@ -10,12 +10,7 @@ class UsersLoginTest < ActionDispatch::IntegrationTest
     get login_path
     assert_template 'sessions/new'
 
-    post login_path, params: {
-      session: {
-        email: '',
-        password: 'foo'
-      }
-    }
+    log_in_as(@user, password: '')
 
     assert_template 'sessions/new'
     assert_not flash.empty?
@@ -27,12 +22,8 @@ class UsersLoginTest < ActionDispatch::IntegrationTest
   test "valid login followed by logout" do
     get login_path
 
-    post login_path, params: {
-      session: {
-        email: @user.email,
-        password: 'password'
-      }
-    }
+    log_in_as(@user)
+
     assert is_logged_in?
     # check the right redirect target
     assert_redirected_to @user

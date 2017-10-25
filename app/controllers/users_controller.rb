@@ -18,6 +18,12 @@ class UsersController < ApplicationController
     end
   end
 
+  def edit
+    @user = User.third
+    #@user = User.find(params[:id])
+    render "edidt"
+  end
+
   private
 
     def user_params
